@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { useRef } from "react";
+
 const Form = () => {
+  // getting form data using useRef
   const name = useRef(null);
   const password = useRef(null);
   const formHandler = (event) => {
@@ -14,6 +16,17 @@ const Form = () => {
       userPassword: password.current.value,
     };
     console.log(data);
+  };
+
+  // using useState() to get the form data
+  const [inputValue, setInputValue] = useState({
+    inputName: "",
+    inputPass: "",
+  });
+
+  const formInput = (obj) => {
+    obj.preventDefault();
+    console.log(inputValue);
   };
 
   return (
@@ -47,6 +60,43 @@ const Form = () => {
           >
             Sign In
           </button>
+        </form>
+      </div>
+      <div className="min-h-screen flex items-center justify-center bg-gray-100">
+        {/* Form Here */}
+        <form
+          onSubmit={formInput}
+          className="max-w-md mx-auto mt-10 p-8 bg-white shadow-lg rounded-xl space-y-5"
+        >
+          <h2 className="text-2xl font-bold text-center text-gray-800">
+            Login Form
+          </h2>
+
+          <input
+            value={inputValue.inputName}
+            onChange={(obj) => {
+              setInputValue({ ...inputValue, inputName: obj.target.value });
+            }}
+            type="text"
+            placeholder="Enter your name"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+
+          <input
+            value={inputValue.inputPass}
+            onChange={(obj) => {
+              setInputValue({ ...inputValue, inputPass: obj.target.value });
+            }}
+            type="password"
+            placeholder="Enter your password"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+
+          <input
+            value="Submit"
+            type="submit"
+            className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold cursor-pointer hover:bg-blue-700 transition duration-300"
+          />
         </form>
       </div>
     </div>
